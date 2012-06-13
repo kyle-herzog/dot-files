@@ -1,7 +1,29 @@
 $editor = 'gvim'
 $git =
 @{
-  opensource = "C:\dev\opensource"
+	workspaces = "E:\Development\Workspaces"
+	poshGitPath = "https://github.com/dahlbyk/posh-git.git"
+}
+
+function ConvertTo-Boolean
+{
+	param
+	(
+		[Parameter(Mandatory=$false)][string] $value
+	)
+	switch ($value)
+	{
+		"y" { return $true; }
+		"yes" { return $true; }
+		"true" { return $true; }
+		"t" { return $true; }
+		1 { return $true; }
+		"n" { return $false; }
+		"no" { return $false; }
+		"false" { return $false; }
+		"f" { return $false; } 
+		0 { return $false; }
+	}
 }
 
 function Edit-ProfileFile
@@ -70,7 +92,93 @@ function Open-Solution
 }
 Set-Alias os Open-Solution
 
-. 'E:\Development\Workspaces\Kyzog\posh-git\profile.example.ps1'
+function Get-GitRepositoryPath
+{
+	param
+	(
+		[Parameter(Mandatory=$true)][string] $repoPath
+	)
 
-Add-SshKey C:\Users\Kyle\.ssh\kyzog_homedns
+	try
+	{
+		$uri = New-Object System.Uri($repoPath)
+		$gitPath = $uri.LocalPath.Replace(".git", "")
+	}
+	catch
+	{
+		$index = $repoPath.LastIndexOf(":")
+		$gitPath = $repoPath.SubString($index + 1, $repoPath.Length - $index - 1).Replace(".git", "")
+	}
+	Join-Path $git.workspaces $gitPath
+}
+
+function Get-ClonedGitRepository
+{
+  param
+  (
+    [Parameter(Mandatory=$true)][string] $repoPath,
+    [string] $dir
+  )
+  if(!($dir))
+  {
+    $dir = Get-GitRepositoryPath $repoPath
+    Write-Host "Generated git path = " $dir
+  }
+  if(!(Test-Path $dir))
+  {
+    New-Item $dir -Type Directory
+  }
+  git clone $repoPath $dir
+}
+Set-Alias gclone Get-ClonedGitRepository
+
+function Load-PoshGitModule
+{
+	$modulePath = Get-GitRepositoryPath $git.poshGitPath 
+	if(!(Test-Path $modulePath))
+	{
+		Write-Host "Posh-Git is not downloaded" -ForegroundColor Yellow
+		$shouldInstall = (Read-Host "Should an install attempt be performed?")
+		if($shouldInstall)
+		{
+			Get-ClonedGitRepository $git.poshGitPath 
+			$success = $true
+		}
+	}
+	else
+	{
+		$success = $true
+	}
+	if($success)
+	{
+		Import-Module $modulePath
+		return 0
+	}
+	else
+	{
+		return 1
+	}
+}
+
+$poshGitLoaded = Load-PoshGitModule
+if($poshGitLoaded -eq 1)
+{
+	Enable-GitColors
+	Start-SshAgent -Quiet
+}
+
+function prompt {
+    $realLASTEXITCODE = $LASTEXITCODE
+
+    # Reset color, which can be messed up by Enable-GitColors
+    $Host.UI.RawUI.ForegroundColor = $GitPromptSettings.DefaultForegroundColor
+
+    Write-Host($pwd) -nonewline
+
+    Write-VcsStatus
+
+    $global:LASTEXITCODE = $realLASTEXITCODE
+    return "> "
+}
+
 
