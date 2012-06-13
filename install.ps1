@@ -3,6 +3,7 @@ $fileName =
   powerShellProfile = "Microsoft.PowerShell_profile.ps1"
   vimrc = ".vimrc"
   vimfiles = "vimfiles"
+  gitconfig = ".gitconfig"
 }
 
 function Get-CurrentScriptPath
@@ -40,6 +41,11 @@ function Install-DotFiles
   New-Junction $installPath $dotFile -Force
   Write-Host "done" -ForegroundColor DarkGreen
 
+  Write-Host "Installing gitconfig..." -NoNewLine
+  $dotFile = Get-DotFilePath $fileName.gitconfig
+  $installPath = Join-Path $HOME $fileName.gitconfig
+  New-Symlink $installPath $dotFile -Force
+  Write-Host "done" -ForegroundColor DarkGreen
 }
 
 try

@@ -1,0 +1,53 @@
+[user]
+  name = Kyle Herzog
+  email = herzog.kyle@gmail.com
+[core]
+  editor = gvim
+
+[color]
+  pager = true
+  status = auto
+  branch = auto
+  diff = auto
+  interactive = auto
+
+[push]
+  default = tracking
+
+[merge]
+  tool = p4merge
+
+[mergetool "p4merge"]
+  cmd = p4merge "$BASE" "$LOCAL" "$REMOTE" "$MERGED"
+  trustExitCode = false
+  keepTemporaries = false
+
+[diff]
+  tool = p4merge
+
+[difftool "p4merge"]
+  cmd = p4merge "$BASE" "$LOCAL" "$REMOTE" "$MERGED"
+
+[alias]
+
+  # Work flows
+  blatest = !sh -c 'git checkout $1 && git fetch origin && git merge origin/$1 --ff-only' -
+  brebase = !sh -c 'git checkout $1 && git fetch origin && git merge origin/$1 --ff-only && git checkout @{-1} && git rebase $1' -
+  bpush = !sh -c 'git checkout $1 && git merge @{-1} --ff-only && git push' -
+
+  # Github workflows
+  upmaster = !git checkout master && git fetch upstream && git merge upstream/master --ff-only && git push origin HEAD
+  uprebase = !git checkout master && git fetch upstream && git merge upstream/master --ff-only && git push origin HEAD &&  git checkout @{-1} && git rebase master
+
+  fmerge = merge --ff-only
+  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+  lstat = log --stat --relative --abbrev-commit --date=local --pretty=format:'%C(white)%h %C(cyan)%cr %C(green)by %cn %Creset%n%C(yellow)%cd%n%s'
+  peeps = !git log --pretty=format:%aN | sort | uniq -c | sort -rn
+  revive = !sh -c 'git checkout $(git rev-list -n 1 HEAD -- "$1")^ -- "$1"' -
+  stache = !git add -A && git stash save
+  showf = show --pretty="format:" --name-only
+  #pbranch = branch --merged | grep -v "\*" | xargs -n 1 git branch -d
+
+[log]
+  date = local
+
