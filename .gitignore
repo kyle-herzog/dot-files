@@ -4,6 +4,7 @@ obj
 
 *~
 *.suo
+*.swp
 *.pidb
 *.userprefs
 *.user
