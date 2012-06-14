@@ -5,6 +5,7 @@ $fileName =
   vimfiles = "vimfiles"
   gitconfig = ".gitconfig"
   console = "console.xml"
+  pathogen = "vimfiles/bundle/pathogen/autoload"
 }
 
 $directories =
@@ -32,32 +33,33 @@ function Install-DotFiles
   $dotFile = Get-DotFilePath $fileName.powerShellProfile
   . $dotFile
   $installPath = Join-Path (Join-Path $HOME "Documents\WindowsPowerShell") $fileName.powerShellProfile
-  New-Symlink $installPath $dotFile -Force
+  New-Symlink $installPath $dotFile -Force | Out-Null
   Write-Host "done" -ForegroundColor DarkGreen
 
   Write-Host "Installing vimrc..." -NoNewLine
   $dotFile = Get-DotFilePath $fileName.vimrc
   $installPath = Join-Path $HOME $fileName.vimrc
-  New-Symlink $installPath $dotFile -Force
+  New-Symlink $installPath $dotFile -Force | Out-Null
   Write-Host "done" -ForegroundColor DarkGreen
 
   Write-Host "Installing vimfiles..." -NoNewLine
   $dotFile = Get-DotFilePath $fileName.vimfiles
   $installPath = Join-Path $HOME $fileName.vimfiles
-  New-Junction $installPath $dotFile -Force
+  New-Junction $installPath $dotFile -Force | Out-Null
+  Write-Host "done" -ForegroundColor DarkGreen
+
+  Write-Host "Installing pathogen autorun..." -NoNewLine
+  $dotFile = Get-DotFilepath $fileName.pathogen
+  $installPath = Join-Path $installPath "autoload"
+  New-Junction $installPath $dotFile -Force | Out-Null
   Write-Host "done" -ForegroundColor DarkGreen
 
   Write-Host "Installing gitconfig..." -NoNewLine
   $dotFile = Get-DotFilePath $fileName.gitconfig
   $installPath = Join-Path $HOME $fileName.gitconfig
-  New-Symlink $installPath $dotFile -Force
+  New-Symlink $installPath $dotFile -Force | Out-Null
   Write-Host "done" -ForegroundColor DarkGreen
 
-  Write-Host "Installing console configureation..." -NoNewLine
-  $dotFile = Get-DotFilePath $fileName.console
-  $installPath = Join-Path $directories.console $fileName.console
-  New-Symlink $installPath $dotFile -Force
-  Write-Host "done" -ForegroundColor DarkGreen
 }
 
 try
