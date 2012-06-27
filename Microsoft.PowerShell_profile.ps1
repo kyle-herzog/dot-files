@@ -1,8 +1,7 @@
 $editor = 'gvim'
 $git =
 @{
-  workspaces = "E:\Development\Workspaces"
-  poshGitPath = "https://github.com/dahlbyk/posh-git.git"
+  workspaces = "C:\dev"
 }
 
 function Get-ChildDirectories
@@ -99,7 +98,15 @@ function Invoke-MKLINK {
   if (Test-Path $Link) {
     if($Force)
     {
-      (Get-Item $Link).Delete()
+      try
+      {
+        (Get-Item $Link).Delete()
+      }
+      catch{}
+      if(Test-Path $Link)
+      {
+        Remove-Item $Link -Resurce -Force
+      }
     }
     else
     {
@@ -270,61 +277,6 @@ function Get-ClonedGitRepository
 }
 Set-Alias gclone Get-ClonedGitRepository
 
-function Load-PoshGitModule
-{
-  $modulePath = Get-GitRepositoryPath $git.poshGitPath 
-  if(!(Test-Path $modulePath))
-  {
-    Write-Host "Posh-Git is not downloaded" -ForegroundColor DarkYellow
-    $shouldInstall = (Read-Host "Should an install attempt be performed?")
-    if($shouldInstall)
-    {
-      Get-ClonedGitRepository $git.poshGitPath 
-      $success = $true
-    }
-  }
-  else
-  {
-    $success = $true
-  }
-  if($success)
-  {
-    Import-Module $modulePath
-    return 0
-  }
-  else
-  {
-    return 1
-  }
-}
-
-$poshGitLoaded = Load-PoshGitModule
-if($poshGitLoaded -eq 1)
-{
-  Enable-GitColors
-  Start-SshAgent -Quiet
-}
-
-function prompt {
-  $realLASTEXITCODE = $LASTEXITCODE
-
-  if((Get-Module posh-git))
-  {
-    # Reset color, which can be messed up by Enable-GitColors
-    $Host.UI.RawUI.ForegroundColor = $GitPromptSettings.DefaultForegroundColor
-  }
-
-  Write-Host($pwd) -nonewline
-
-  if((Get-Module posh-git))
-  {
-    Write-VcsStatus
-  }
-
-  $global:LASTEXITCODE = $realLASTEXITCODE
-  return "> "
-}
-
 
 function Expand-Item
 {
@@ -469,3 +421,33 @@ function Clear-Any-Restart([string] $key=$global:restartKey)
   }
 }
 
+Import-Module Posh-Git -ErrorAction SilentlyContinue
+if(Get-Module Posh-Git)
+{
+  Enable-GitColors
+  Start-SshAgent -Quiet
+}
+else
+{
+  Write-Warning "Posh-Git module was not found"
+}
+
+function prompt {
+  $realLASTEXITCODE = $LASTEXITCODE
+
+  if((Get-Module posh-git))
+  {
+    # Reset color, which can be messed up by Enable-GitColors
+    $Host.UI.RawUI.ForegroundColor = $GitPromptSettings.DefaultForegroundColor
+  }
+
+  Write-Host($pwd) -nonewline
+
+  if((Get-Module posh-git))
+  {
+    Write-VcsStatus
+  }
+
+  $global:LASTEXITCODE = $realLASTEXITCODE
+  return "> "
+}

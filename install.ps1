@@ -6,6 +6,7 @@ $fileName =
   gitconfig = ".gitconfig"
   console = "console.xml"
   pathogen = "vimfiles/bundle/pathogen/autoload"
+  poshgit = "posh-git"
 }
 
 $directories =
@@ -29,10 +30,32 @@ function Get-DotFilePath
 
 function Install-DotFiles
 {
+  Write-Host "Initializing SubModules..." -NoNewLine
+  & git submodule update --init --recursive | Out-Null
+  Write-Host "done" -ForegroundColor DarkGreen
+
+  Write-Host "Installing Posh-Git..." -NoNewLine
+  $dotFile = Get-DotFilePath $fileName.poshgit
+  $psProfile = Get-DotFilePath $fileName.powerShellProfile
+  . $psProfile
+  $userpsmodules = Join-Path $HOME "Documents\WindowsPowerShell\Modules"
+  if(!(Test-Path $userpsmodules))
+  {
+    New-Item $userpsmodules -Type Directory | Out-Null
+  }
+  $installPath = Join-Path $userpsmodules $fileName.poshgit
+  New-Junction $installPath $dotFile -Force | Out-Null
+  Write-Host "done" -ForegroundColor DarkGreen
+
   Write-Host "Installing PowerShell Profile..." -NoNewLine
   $dotFile = Get-DotFilePath $fileName.powerShellProfile
   . $dotFile
-  $installPath = Join-Path (Join-Path $HOME "Documents\WindowsPowerShell") $fileName.powerShellProfile
+  $userpshome = Join-Path $HOME "Documents\WindowsPowerShell"
+  if(!(Test-Path $userpshome))
+  {
+    New-Item $userpshome -Type Directory | Out-Null
+  }
+  $installPath = Join-Path $userpshome $fileName.powerShellProfile
   New-Symlink $installPath $dotFile -Force | Out-Null
   Write-Host "done" -ForegroundColor DarkGreen
 
