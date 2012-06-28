@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <settings>
-	<console change_refresh="10" refresh="100" rows="54" columns="103" buffer_rows="5000" buffer_columns="0" shell="" init_dir="" save_size="1" start_hidden="0">
+	<console change_refresh="10" refresh="100" rows="43" columns="102" buffer_rows="5000" buffer_columns="0" shell="" init_dir="" save_size="1" start_hidden="0">
 		<colors>
 			<color id="0" r="0" g="0" b="0"/>
 			<color id="1" r="0" g="0" b="128"/>
@@ -25,11 +25,11 @@
 			<color use="0" r="0" g="0" b="128"/>
 		</font>
 		<window title="Console" icon="" use_tab_icon="1" use_console_title="0" show_cmd="1" show_cmd_tabs="1" use_tab_title="1" trim_tab_titles="25" trim_tab_titles_right="0"/>
-		<controls show_menu="0" show_toolbar="0" show_statusbar="0" show_tabs="1" hide_single_tab="1" show_scrollbars="1" tabs_on_bottom="0" flat_scrollbars="1"/>
+		<controls show_menu="0" show_toolbar="0" show_statusbar="0" show_tabs="1" hide_single_tab="1" show_scrollbars="1" tabs_on_bottom="0" flat_scrollbars="0"/>
 		<styles caption="1" resizable="1" taskbar_button="1" border="1" inside_border="2" tray_icon="1">
 			<selection_color r="255" g="255" b="255"/>
 		</styles>
-		<position x="44" y="104" dock="-1" snap="-1" z_order="0" save_position="1"/>
+		<position x="-32000" y="-32000" dock="-1" snap="-1" z_order="0" save_position="1"/>
 		<transparency type="0" active_alpha="225" inactive_alpha="185" r="0" g="0" b="0"/>
 	</appearance>
 	<behavior>
@@ -43,14 +43,14 @@
 		<hotkey ctrl="0" shift="0" alt="1" extended="0" code="115" command="exit"/>
 		<hotkey ctrl="1" shift="1" alt="0" extended="0" code="80" command="newtab1"/>
 		<hotkey ctrl="1" shift="1" alt="0" extended="0" code="66" command="newtab2"/>
-		<hotkey ctrl="1" shift="0" alt="0" extended="0" code="114" command="newtab3"/>
-		<hotkey ctrl="1" shift="0" alt="0" extended="0" code="115" command="newtab4"/>
-		<hotkey ctrl="1" shift="0" alt="0" extended="0" code="116" command="newtab5"/>
-		<hotkey ctrl="1" shift="0" alt="0" extended="0" code="117" command="newtab6"/>
-		<hotkey ctrl="1" shift="0" alt="0" extended="0" code="118" command="newtab7"/>
-		<hotkey ctrl="1" shift="0" alt="0" extended="0" code="119" command="newtab8"/>
-		<hotkey ctrl="1" shift="0" alt="0" extended="0" code="120" command="newtab9"/>
-		<hotkey ctrl="1" shift="0" alt="0" extended="0" code="121" command="newtab10"/>
+		<hotkey ctrl="1" shift="1" alt="0" extended="0" code="49" command="newtab3"/>
+		<hotkey ctrl="1" shift="1" alt="0" extended="0" code="50" command="newtab4"/>
+		<hotkey ctrl="1" shift="1" alt="0" extended="0" code="51" command="newtab5"/>
+		<hotkey ctrl="1" shift="1" alt="0" extended="0" code="52" command="newtab6"/>
+		<hotkey ctrl="1" shift="1" alt="0" extended="0" code="53" command="newtab7"/>
+		<hotkey ctrl="1" shift="1" alt="0" extended="0" code="54" command="newtab8"/>
+		<hotkey ctrl="1" shift="1" alt="0" extended="0" code="55" command="newtab9"/>
+		<hotkey ctrl="1" shift="1" alt="0" extended="0" code="56" command="newtab10"/>
 		<hotkey ctrl="1" shift="0" alt="0" extended="0" code="49" command="switchtab1"/>
 		<hotkey ctrl="1" shift="0" alt="0" extended="0" code="50" command="switchtab2"/>
 		<hotkey ctrl="1" shift="0" alt="0" extended="0" code="51" command="switchtab3"/>
@@ -91,7 +91,7 @@
 	</mouse>
 	<tabs>
 		<tab title="PowerShell" icon="powershell.ico" use_default_icon="0">
-			<console shell="C:\WINDOWS\system32\windowspowershell\v1.0\powershell.exe" init_dir="E:\Development" run_as_user="0" user=""/>
+			<console shell="C:\WINDOWS\system32\windowspowershell\v1.0\powershell.exe" init_dir="C:\dev" run_as_user="0" user=""/>
 			<cursor style="0" r="255" g="255" b="0"/>
 			<background type="0" r="0" g="0" b="0">
 				<image file="" relative="0" extend="0" position="0">
@@ -99,26 +99,8 @@
 				</image>
 			</background>
 		</tab>
-		<tab title="git" icon="C:\Program Files (x86)\Git\etc\git.ico" use_default_icon="0">
+		<tab title="git bash" icon="C:\Program Files (x86)\Git\etc\git.ico" use_default_icon="0">
 			<console shell="C:\Windows\SysWOW64\cmd.exe /c &quot;&quot;C:\Program Files (x86)\Git\bin\sh.exe&quot; --login -i&quot;" init_dir="C:\dev" run_as_user="0" user=""/>
-			<cursor style="0" r="255" g="255" b="255"/>
-			<background type="0" r="0" g="0" b="0">
-				<image file="" relative="0" extend="0" position="0">
-					<tint opacity="0" r="0" g="0" b="0"/>
-				</image>
-			</background>
-		</tab>
-		<tab title="Console2" use_default_icon="0">
-			<console shell="" init_dir="c:\bin" run_as_user="0" user=""/>
-			<cursor style="0" r="255" g="255" b="255"/>
-			<background type="0" r="0" g="0" b="0">
-				<image file="" relative="0" extend="0" position="0">
-					<tint opacity="0" r="0" g="0" b="0"/>
-				</image>
-			</background>
-		</tab>
-		<tab title="Cygwin" use_default_icon="0">
-			<console shell="E:\Development\Tools\cygwin\bin\bash.exe --login -i" init_dir="" run_as_user="0" user=""/>
 			<cursor style="0" r="255" g="255" b="255"/>
 			<background type="0" r="0" g="0" b="0">
 				<image file="" relative="0" extend="0" position="0">
