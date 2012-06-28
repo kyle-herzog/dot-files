@@ -1,4 +1,4 @@
-$fileName = 
+$fileName =
 @{
   powerShellProfile = "Microsoft.PowerShell_profile.ps1"
   vimrc = ".vimrc"
@@ -17,7 +17,7 @@ $directories =
 
 function Get-CurrentScriptPath
 {
-  Split-Path $myInvocation.ScriptName 
+  Split-Path $myInvocation.ScriptName
 }
 
 function Get-DotFilePath
