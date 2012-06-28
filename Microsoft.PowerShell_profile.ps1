@@ -105,7 +105,7 @@ function Invoke-MKLINK {
       catch{}
       if(Test-Path $Link)
       {
-        Remove-Item $Link -Resurce -Force
+        Remove-Item $Link -Recurse -Force
       }
     }
     else
