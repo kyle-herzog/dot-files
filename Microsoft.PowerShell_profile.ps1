@@ -421,6 +421,26 @@ function Clear-Any-Restart([string] $key=$global:restartKey)
   }
 }
 
+function Get-DownloadFile
+{
+    param
+    (
+        [Parameter(Mandatory=$true)] [string] $url,
+        [Parameter(Mandatory=$true)] [string] $localPath
+    )
+
+    $localDirectory = Split-Path $localPath
+
+    if(!(Test-Path $localDirectory))
+    {
+        New-Item $localDirectory -Type Directory | Out-Null
+    }
+
+    $webClient = New-Object System.Net.WebClient
+    $webClient.DownloadFile($url, $localPath)
+}
+Set-Alias wget Get-DownloadFile
+
 Import-Module Posh-Git -ErrorAction SilentlyContinue
 if(Get-Module Posh-Git)
 {

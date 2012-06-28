@@ -4,6 +4,7 @@ $fileName =
   vimrc = ".vimrc"
   vimfiles = "vimfiles"
   gitconfig = ".gitconfig"
+  console2 = "http://sourceforge.net/projects/console/files/latest/download"
   console = "console.xml"
   pathogen = "vimfiles/bundle/pathogen/autoload"
   poshgit = "posh-git"
@@ -82,6 +83,10 @@ function Install-DotFiles
   $installPath = Join-Path $HOME $fileName.gitconfig
   New-Symlink $installPath $dotFile -Force | Out-Null
   Write-Host "done" -ForegroundColor DarkGreen
+
+  Write-Host "Downloading console2..." -NoNewLine
+
+  Write-Host "done" -ForgroundColor DarkGreen
 
 }
 
