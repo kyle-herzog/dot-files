@@ -1,6 +1,6 @@
 $fileName =
 @{
-  powerShellProfile = "Microsoft.PowerShell_profile.ps1"
+  powerShellProfile = "powershell\Microsoft.PowerShell_profile.ps1"
   vimrc = ".vimrc"
   vimfiles = "vimfiles"
   gitconfig = ".gitconfig"
@@ -56,7 +56,7 @@ function Install-DotFiles
   {
     New-Item $userpshome -Type Directory | Out-Null
   }
-  $installPath = Join-Path $userpshome $fileName.powerShellProfile
+  $installPath = Join-Path $userpshome (Split-Path $fileName.powerShellProfile -leaf)
   New-Symlink $installPath $dotFile -Force | Out-Null
   Write-Host "done" -ForegroundColor DarkGreen
 
