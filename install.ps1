@@ -7,7 +7,7 @@ $fileName =
   console2 = "http://sourceforge.net/projects/console/files/latest/download"
   console = "console.xml"
   pathogen = "vimfiles/bundle/pathogen/autoload"
-  poshgit = "posh-git"
+  poshgit = "powershell\posh-git"
 }
 
 $directories =
@@ -44,7 +44,7 @@ function Install-DotFiles
   {
     New-Item $userpsmodules -Type Directory | Out-Null
   }
-  $installPath = Join-Path $userpsmodules $fileName.poshgit
+  $installPath = Join-Path $userpsmodules (Split-Path $fileName.poshgit -leaf)
   New-Junction $installPath $dotFile -Force | Out-Null
   Write-Host "done" -ForegroundColor DarkGreen
 
