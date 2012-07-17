@@ -3,7 +3,7 @@ $fileName =
   powerShellProfile = "powershell\Microsoft.PowerShell_profile.ps1"
   vimrc = ".vimrc"
   vimfiles = "vimfiles"
-  gitconfig = ".gitconfig"
+  gitconfig = "git/.gitconfig"
   console2 = "http://sourceforge.net/projects/console/files/latest/download"
   console = "console.xml"
   pathogen = "vimfiles/bundle/pathogen/autoload"
@@ -80,7 +80,7 @@ function Install-DotFiles
 
   Write-Host "Installing gitconfig..." -NoNewLine
   $dotFile = Get-DotFilePath $fileName.gitconfig
-  $installPath = Join-Path $HOME $fileName.gitconfig
+  $installPath = Join-Path $HOME (Split-Path $fileName.gitconfig -leaf)
   New-Symlink $installPath $dotFile -Force | Out-Null
   Write-Host "done" -ForegroundColor DarkGreen
 
