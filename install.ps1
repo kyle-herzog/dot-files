@@ -1,7 +1,7 @@
 $fileName =
 @{
   powerShellProfile = "powershell\Microsoft.PowerShell_profile.ps1"
-  vimrc = ".vimrc"
+  vimrc = "vim/.vimrc"
   vimfiles = "vimfiles"
   gitconfig = "git/.gitconfig"
   console2 = "http://sourceforge.net/projects/console/files/latest/download"
@@ -62,7 +62,7 @@ function Install-DotFiles
 
   Write-Host "Installing vimrc..." -NoNewLine
   $dotFile = Get-DotFilePath $fileName.vimrc
-  $installPath = Join-Path $HOME $fileName.vimrc
+  $installPath = Join-Path $HOME (Split-Path $fileName.vimrc -leaf)
   New-Symlink $installPath $dotFile -Force | Out-Null
   Write-Host "done" -ForegroundColor DarkGreen
 
