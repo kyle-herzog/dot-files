@@ -2,11 +2,11 @@ $fileName =
 @{
   powerShellProfile = "powershell\Microsoft.PowerShell_profile.ps1"
   vimrc = "vim/.vimrc"
-  vimfiles = "vimfiles"
+  vimfiles = "vim/vimfiles"
   gitconfig = "git/.gitconfig"
   console2 = "http://sourceforge.net/projects/console/files/latest/download"
   console = "console.xml"
-  pathogen = "vimfiles/bundle/pathogen/autoload"
+  pathogen = "vim/vimfiles/bundle/pathogen/autoload"
   poshgit = "powershell\posh-git"
 }
 
@@ -68,7 +68,7 @@ function Install-DotFiles
 
   Write-Host "Installing vimfiles..." -NoNewLine
   $dotFile = Get-DotFilePath $fileName.vimfiles
-  $installPath = Join-Path $HOME $fileName.vimfiles
+  $installPath = Join-Path $HOME (Split-Path $fileName.vimfiles -leaf)
   New-Junction $installPath $dotFile -Force | Out-Null
   Write-Host "done" -ForegroundColor DarkGreen
 
