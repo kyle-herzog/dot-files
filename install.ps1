@@ -1,6 +1,7 @@
 $fileName =
 @{
   powerShellProfile = "powershell\Microsoft.PowerShell_profile.ps1"
+  originalPowerShellProfile = "powershell\Microsoft.PowerShell_profile.orig.ps1"
   vimrc = "vim/.vimrc"
   vimfiles = "vim/vimfiles"
   gitconfig = "git/.gitconfig"
@@ -37,7 +38,7 @@ function Install-DotFiles
 
   Write-Host "Installing Posh-Git..." -NoNewLine
   $dotFile = Get-DotFilePath $fileName.poshgit
-  $psProfile = Get-DotFilePath $fileName.powerShellProfile
+  $psProfile = Get-DotFilePath $fileName.originalPowerShellProfile
   . $psProfile
   $userpsmodules = Join-Path $HOME "Documents\WindowsPowerShell\Modules"
   if(!(Test-Path $userpsmodules))
@@ -48,8 +49,23 @@ function Install-DotFiles
   New-Junction $installPath $dotFile -Force | Out-Null
   Write-Host "done" -ForegroundColor DarkGreen
 
-  Write-Host "Installing PowerShell Profile..." -NoNewLine
+  Write-Host "Installing PowerShell Profile..."
+  $workspacepath = "C:\dev\workspaces"
+  $promptValue = Read-Host "What is the path to your workspace? (leave empty to default to $workspacepath)"
+  if($promptValue)
+  {
+    $workspacepath = $promptValue
+  }
+  Write-Host ($workspacepath)
+  $original_file = Get-DotFilePath $fileName.originalPowerShellProfile
   $dotFile = Get-DotFilePath $fileName.powerShellProfile
+  if(Test-Path $dotFile)
+  {
+    Remove-Item $dotFile -Force
+  }
+  (Get-Content $original_file) | Foreach-Object {
+      $_ -replace '<workspacepath>', "$workspacepath" `
+      } | Set-Content $dotFile
   . $dotFile
   $userpshome = Join-Path $HOME "Documents\WindowsPowerShell"
   if(!(Test-Path $userpshome))

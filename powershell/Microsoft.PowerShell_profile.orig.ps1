@@ -1,7 +1,7 @@
 $editor = 'gvim'
 $git =
 @{
-  workspaces = "C:\dev\workspaces"
+  workspaces = '<workspacepath>'
 }
 
 function Get-ChildDirectories
