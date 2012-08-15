@@ -56,34 +56,16 @@ function Install-DotFiles
   {
     $workspacepath = $promptValue
   }
-  Write-Host ($workspacepath)
-  Write-Host ($installer_data.originalPowerShellProfile)
-
   $original_file = Get-DotFilePath $installer_data.originalPowerShellProfile
-
-  Write-Host "Original File - $original_file"
-
   $dotFile = Get-DotFilePath $installer_data.powerShellProfile
-
-  Write-Host "Dot File - $dotFile"
-
   if(Test-Path $dotFile)
   {
     Remove-Item $dotFile -Force
   }
-
-  Write-Host "passed dotfile check"
-
   (Get-Content $original_file) | Foreach-Object {
       $_ -replace '<workspacepath>', "$workspacepath" `
       } | Set-Content $dotFile
-
-  Write-Host "passed dotfile customization"
-
   $userpshome = Join-Path $HOME "Documents\WindowsPowerShell"
-
-  Write-Host "UserPSHome $userpshome"
-
   if(!(Test-Path $userpshome))
   {
     New-Item $userpshome -Type Directory | Out-Null
