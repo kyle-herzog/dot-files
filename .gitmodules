@@ -52,3 +52,6 @@
 [submodule "vim/vimfiles/bundle/ps1"]
 	path = vim/vimfiles/bundle/ps1
 	url = git://github.com/PProvost/vim-ps1.git
+[submodule "powershell/posh-vm-management"]
+	path = powershell/posh-vm-management
+	url = git://github.com/Kyzog/posh-vm-manager.git
