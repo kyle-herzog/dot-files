@@ -21,6 +21,7 @@ function Install-DotFiles
     vimrc = "vim/.vimrc"
     vimfiles = "vim/vimfiles"
     gitconfig = "git/.gitconfig"
+    originalGitconfig = "git/.gitconfig.original"
     console2 = "http://sourceforge.net/projects/console/files/latest/download"
     console = "console.xml"
     pathogen = "vim/vimfiles/bundle/pathogen/autoload"
@@ -93,9 +94,37 @@ function Install-DotFiles
   Write-Host "done" -ForegroundColor DarkGreen
 
   Write-Host "Installing gitconfig..." -NoNewLine
+  $original_file = Get-DotFilePath $installer_data.originalGitconfig
   $dotFile = Get-DotFilePath $installer_data.gitconfig
   $installPath = Join-Path $HOME (Split-Path $installer_data.gitconfig -leaf)
+
+  $gitUserName = ""
+  $promptValue = ""
+  while(!$promptValue)
+  {
+    $promptValue = Read-Host "What is the user.name for git?"
+  }
+  $gitUserName = $promptValue
+
+  $gitUserEmail = ""
+  $promptValue = ""
+  while(!$promptValue)
+  {
+    $promptValue = Read-Host "What is the user.email for git?"
+  }
+  $gitUserEmail = $promptValue
+
+  if(Test-Path $dotFile)
+  {
+    Remove-Item $dotFile -Force
+  }
+  (Get-Content $original_file) | Foreach-Object {
+      $_ -replace '<user.name>', "$gitUserName" `
+         -replace '<user.email>', "$gitUserEmail" `
+      } | Set-Content $dotFile
+
   New-Symlink $installPath $dotFile -Force | Out-Null
+
   Write-Host "done" -ForegroundColor DarkGreen
 
   Write-Host "Downloading console2..." -NoNewLine

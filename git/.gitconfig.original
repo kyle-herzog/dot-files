@@ -1,6 +1,6 @@
 [user]
-  name = Kyle Herzog
-  email = herzog.kyle@gmail.com
+  name = '<user.name>'
+  email = '<user.email>'
 [core]
   editor = gvim
 
