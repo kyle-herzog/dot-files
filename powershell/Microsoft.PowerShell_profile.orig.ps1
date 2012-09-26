@@ -445,7 +445,10 @@ Import-Module Posh-Git -ErrorAction SilentlyContinue
 if(Get-Module Posh-Git)
 {
   Enable-GitColors
+  $sshDirectory = "$HOME\.ssh"
+  $pubFiles = Get-ChildItem "$sshDirectory\*.*" -Include "*.pub"
   Start-SshAgent -Quiet
+  Foreach-Object -InputObject $pubFiles { Add-SshKey "$sshDirectory\$($_.BaseName)" }
 }
 else
 {
