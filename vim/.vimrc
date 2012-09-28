@@ -26,6 +26,7 @@ if has('gui_running')
 else
   colorscheme wombat256mod
 endif
+set bg=dark
 
 "
 " Moving around / editing
@@ -105,7 +106,7 @@ set guioptions+=c       " Use console dialogs instead of popup dialogs for simpl
 "set guioptions-=T       " Remove toolbar
 set guioptions-=r       " Remove right-hand scroll bar
 set guioptions-=m       " Removes the menu
-set cursorline
+"set cursorline
 
 "
 " Messages, Info, & Status
