@@ -99,12 +99,7 @@ function initialize_submodules
 {
   w_info -n "Initializing submodules..."
   pushd "$script_location"
-  out_null "git submodule sync"
-  out_null "git submodule init"
-  out_null "git submodule update"
-  out_null "git submodule foreach git pull origin master"
-  out_null "git submodule foreach git submodule init"
-  out_null "git submodule foreach git submodule update"
+  out_null "git submodule update --init --recursive"
   popd
   w_complete "done"
 }
