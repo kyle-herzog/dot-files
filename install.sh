@@ -138,8 +138,16 @@ function install_git_settings
   w_complete "done"
 }
 
+function install_bash_settings
+{
+  w_info -n "Installing bash settings..."
+  link_file "$script_location/bash/.profile" "${HOME}/.profile"
+  w_complete "done"
+}
+
 script_location=$(get_script_directory)
 
 initialize_submodules
 install_vim_settings
 install_git_settings
+install_bash_settings
