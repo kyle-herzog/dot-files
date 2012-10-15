@@ -1,6 +1,3 @@
-" https://github.com/smerrell/dotfiles
-"
-
 let g:ruby_path = 'c:\Ruby193\bin'
 
 set nocompatible        " vim > vi mode.
@@ -38,7 +35,8 @@ set showmatch           " Show matched paren when balanced
 set matchtime=2         " for .2 seconds
 set linebreak           " Don't wrap text in the middle of a word
 set mouse=a             " Always enable mouse
-set clipboard+=unnamed  " Makes using clipboard easier
+set clipboard+=unnamed  " Makes using clipboard easierhttps://www.macys.com/service/credit/account.ognc
+set lines=65
 " Navigate by display line NOT by actual line
 "nnoremap j gj
 "nnoremap k gk
