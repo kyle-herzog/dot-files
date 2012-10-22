@@ -1,5 +1,6 @@
 SSH_ENV="$HOME/.ssh/environment"
 editor='mvim'
+workspaces="$HOME/workspace"
 
 function edit
 {
