@@ -74,6 +74,9 @@ map tm :tabm<Space>
 map <silent><C-N> :tabn<CR>
 map <silent><C-P> :tabp<CR>
 
+noremap <F15> <NOP>
+inoremap <F15> <NOP>
+
 "
 " Search / Replace
 "

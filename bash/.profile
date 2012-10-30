@@ -196,10 +196,10 @@ function set_shell_colors
 
 function generate_shell_information
 {
-  echo="$shell_date_color[\$(date +%H:%M)] \u@\h $shell_red\$(generate_vcs_information) $shell_yellow\w \n$shell_empty\$ $shell_gray"
-  echo="$shell_gray> $shell_gray"
+  PS1="$shell_date_color[\$(date +%H:%M)] \u@\h $shell_red\$(generate_vcs_information) $shell_yellow\w \n$shell_empty\$ $shell_gray"
+  PS2="$shell_gray> $shell_gray"
 }
 
 set_shell_colors
-PS=generate_shell_information
+generate_shell_information
 initialize_ssh
