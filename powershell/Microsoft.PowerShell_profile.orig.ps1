@@ -10,7 +10,6 @@ function Get-ChildDirectories
   (
     [Parameter(Mandatory=$true)][string] $path
   )
-  
   if((Test-Path $path))
   {
     Get-ChildItem $path | Where-Object { $_.mode -match "d" }
@@ -188,6 +187,17 @@ function Edit-File
 }
 Set-Alias edit Edit-File
 Set-Alias ef Edit-File
+
+function Edit-FileInTab
+{
+  param
+  (
+  [Parameter(Mandatory=$false)] [string] $file
+  )
+  & $editor --remote-tab-silent $file
+}
+Set-Alias editt Edit-FileInFile
+Set-Alias eft Edit-FileInFile
 
 function Start-BashScript
 {
