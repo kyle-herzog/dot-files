@@ -36,7 +36,7 @@ set matchtime=2         " for .2 seconds
 set linebreak           " Don't wrap text in the middle of a word
 set mouse=a             " Always enable mouse
 set clipboard+=unnamed  " Makes using clipboard easierhttps://www.macys.com/service/credit/account.ognc
-set lines=65
+set lines=50
 " Navigate by display line NOT by actual line
 "nnoremap j gj
 "nnoremap k gk
