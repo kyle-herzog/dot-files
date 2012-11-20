@@ -28,6 +28,7 @@ function Install-DotFiles
     poshgit = "powershell\posh-git"
     poshVmManagement = "powershell\posh-vm-management\install.ps1"
     consolePath = 'E:\Development\Tools\Console'
+    gitGlobalIgnore = 'git/.git_global_ignore'
   }
 
   Write-Host "Initializing SubModules..." -NoNewLine
@@ -125,6 +126,11 @@ function Install-DotFiles
 
   New-Symlink $installPath $dotFile -Force | Out-Null
 
+  Write-Host "done" -ForegroundColor DarkGreen
+
+  Write-Host "Installing gitignore..." -NoNewLine
+  $git_global_ignore = Get-DotFilePath $installer_data.gitGlobalIgnore
+  & git config --global core.excludesfile $git_global_ignore
   Write-Host "done" -ForegroundColor DarkGreen
 
   Write-Host "Downloading console2..." -NoNewLine

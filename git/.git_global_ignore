@@ -1,0 +1,18 @@
+# Microsoft Compiled Libraries ########
+#######################################
+obj
+bin
+*.dll
+
+# Microsoft IDE User Files ############
+#######################################
+*.suo
+*.ncrunch*
+
+# Apple OS Files ######################
+#######################################
+*.DS_Store
+
+# Red Touch Compiled Libraries ########
+#######################################
+BuiltModules
