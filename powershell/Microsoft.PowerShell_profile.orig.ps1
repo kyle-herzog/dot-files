@@ -196,8 +196,8 @@ function Edit-FileInTab
   )
   & $editor --remote-tab-silent $file
 }
-Set-Alias editt Edit-FileInFile
-Set-Alias eft Edit-FileInFile
+Set-Alias editt Edit-FileInTab
+Set-Alias eft Edit-FileInTab
 
 function Start-BashScript
 {
