@@ -3,6 +3,16 @@ function Get-CurrentScriptPath
   Split-Path $myInvocation.ScriptName
 }
 
+function Get-ScriptDirectory
+{
+  Split-Path $myInvocation.ScriptName
+}
+
+function Get-ScriptName
+{
+  $myInvocation.ScriptName
+}
+
 function Get-DotFilePath
 {
   param
@@ -10,6 +20,33 @@ function Get-DotFilePath
     [Parameter(Mandatory=$true)][string] $file
   )
   Join-Path (Get-CurrentScriptPath) $file
+}
+
+function Test-ElevatedShell
+{
+  $user = [Security.Principal.WindowsIdentity]::GetCurrent()
+  (New-Object Security.Principal.WindowsPrincipal $user).IsInRole([Security.Principal.WindowsBuiltinRole]::Administrator)
+}
+
+function ConvertTo-Boolean
+{
+  param
+  (
+    [Parameter(Mandatory=$false)][string] $value
+  )
+  switch ($value)
+  {
+    "y" { return $true; }
+    "yes" { return $true; }
+    "true" { return $true; }
+    "t" { return $true; }
+    1 { return $true; }
+    "n" { return $false; }
+    "no" { return $false; }
+    "false" { return $false; }
+    "f" { return $false; }
+    0 { return $false; }
+  }
 }
 
 function Install-DotFiles
@@ -141,9 +178,25 @@ function Install-DotFiles
 
 try
 {
-  Write-Host "Installing dot-files..."
-  Install-DotFiles
-  Write-Host "Installing dot-files...done" -ForegroundColor DarkGreen
+  if(!(Test-ElevatedShell))
+  {
+    $answer = Read-Host -Prompt "You are not running as an Administrator. Would you like me to automatically restart as an Administrator?"
+    $parsedAnswer = ConvertTo-Boolean $answer
+    if($parsedAnswer)
+    {
+      Start-Process "powershell" "-ExecutionPolicy Bypass -noexit $(Get-ScriptName)" -Verb runAs
+    }
+    else
+    {
+      Write-Warning "Did not finish bootstrapping as current prompt is without administraion priviledges..."
+    }
+  }
+  else
+  {
+    Write-Host "Installing dot-files..."
+    Install-DotFiles
+    Write-Host "Installing dot-files...done" -ForegroundColor DarkGreen
+  }
 }
 catch
 {
