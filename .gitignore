@@ -4,4 +4,18 @@ vim/vimfiles/.netrwhist
 powershell/Microsoft.PowerShell_profile.ps1
 git/.gitconfig
 
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
 
+
+# Thumbnails
+._*
+
+# Files that might appear on external disk
+.Spotlight-V100
+.Trashes
+
+#vim files
+*swp
